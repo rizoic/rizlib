@@ -1,4 +1,4 @@
-# RIZLIB
+# rizlib
 
 A set of handy functions to make my life easier.
 
