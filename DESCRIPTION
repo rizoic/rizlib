@@ -1,0 +1,17 @@
+Package: rizlib
+Type: Package
+Title: A set of handy functions to make my life easier
+Version: 0.1.0
+Author: rizoic
+Maintainer: Ric Oic <rizoic.io@gmial.com>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: LGPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Imports:
+  DiffBind
+Suggests: 
+    testthat,
+    GenomicRanges
+RoxygenNote: 6.1.1
