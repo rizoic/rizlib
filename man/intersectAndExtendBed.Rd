@@ -4,17 +4,12 @@
 \alias{intersectAndExtendBed}
 \title{Intersect and Extend regions from multiple bed files}
 \usage{
-intersectAndExtendBed(bedFiles, minOverlap, regionFormat = "bed",
-  skipLines = 0)
+intersectAndExtendBed(bedFiles, minOverlap)
 }
 \arguments{
 \item{bedFiles}{A character vector of bed files}
 
 \item{minOverlap}{Min number of files or fraction of file to have a region}
-
-\item{regionFormat}{bed/raw. If raw the start will be converted to 0 based}
-
-\item{skipLines}{Number of lines to skip from the bed file}
 }
 \value{
 A granges oject of the merged regions
@@ -26,7 +21,7 @@ of bed files and return a single Granges object of the merged bed file
 \examples{
 \dontrun{
 intersectAndExtendBed(bedFiles = c("/path/to/A.bed", "/path/to/B.bed", "/path/to/C.bed"),
-minOverlap = 2, peakformat = "raw", skipLines = 0)
+minOverlap = 2)
 }
 
 }

@@ -6,8 +6,6 @@
 #'
 #' @param bedFiles A character vector of bed files
 #' @param minOverlap Min number of files or fraction of file to have a region
-#' @param regionFormat bed/raw. If raw the start will be converted to 0 based
-#' @param skipLines Number of lines to skip from the bed file
 #'
 #' @return A granges oject of the merged regions
 #' @export
@@ -15,10 +13,10 @@
 #' @examples
 #' \dontrun{
 #' intersectAndExtendBed(bedFiles = c("/path/to/A.bed", "/path/to/B.bed", "/path/to/C.bed"),
-#' minOverlap = 2, peakformat = "raw", skipLines = 0)
+#' minOverlap = 2)
 #' }
 #'
-intersectAndExtendBed <- function(bedFiles, minOverlap, regionFormat = "bed", skipLines = 0){
+intersectAndExtendBed <- function(bedFiles, minOverlap){
 
   # If no minoverlap found assume we need overlap over all files
   if(missing(minOverlap)){
@@ -29,20 +27,20 @@ intersectAndExtendBed <- function(bedFiles, minOverlap, regionFormat = "bed", sk
   samplesheet.df <- data.frame(
     SampleID = paste0("bed_file_", seq(1, length(bedFiles))),
     Peaks = bedFiles,
-    PeakCaller = regionFormat,
     ScoreCol = 0
   )
 
-  #
-  diff.dba <- DiffBind::dba(minOverlap = minOverlap,
-                            sampleSheet = samplesheet.df,
-                            skipLines = skipLines)
+  # Create a diffbind obj
+  suppressMessages(diff.dba <- DiffBind::dba(minOverlap = as.numeric(minOverlap),
+                            sampleSheet = samplesheet.df))
 
   # Extract the expanded bed
   returnGrange <- DiffBind::dba.peakset(DBA = diff.dba,
                                         bRetrieve = TRUE)
 
+  # Remove metadata that diffbind adds
   GenomicRanges::elementMetadata(returnGrange) <- NULL
 
+  # Return a stripped down granges
   return(returnGrange)
 }

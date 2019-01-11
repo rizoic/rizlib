@@ -14,6 +14,6 @@ overlap2Out <- GenomicRanges::GRanges(seqnames = Rle(c("chr1", "chr2", "chr3", "
                                                          end = c(250, 450, 650, 850)))
 
 testthat::test_that("test merge and extend bed",{
-  testthat::expect_equal(sum(rizlib::intersectAndExtendBed(bedFiles = bedFiles, regionFormat = "raw") == overlapAllOut), 3)
+  testthat::expect_equal(sum(rizlib::intersectAndExtendBed(bedFiles = bedFiles) == overlapAllOut), 3)
   testthat::expect_equal(sum(rizlib::intersectAndExtendBed(bedFiles = bedFiles, minOverlap = 2) == overlap2Out), 4)
   })
